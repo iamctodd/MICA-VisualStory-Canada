@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Oh, Canada</title>
+    
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/agency.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> 
+    <link href='http://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'> 
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+        <script type="text/javascript">
+		$(document).ready(function() {
+			
+
+			var options = {
+				chart: {
+					renderTo: 'gni',
+					type: 'line'
+				},
+				title: {
+					text: ''
+				},
+				xAxis: {
+					categories: []
+				},
+				yAxis: {
+					title: {
+						text: '$US Current'
+					}
+				},
+				
+				series: []
+				
+			};
+			
+			/*
+			 Load the data from the CSV file. 				
+			 */ 
+			$.get('data/gni.csv', function(data) {
+				// Split the lines
+				var lines = data.split('\n');
+				$.each(lines, function(lineNo, line) {
+					var items = line.split(',');
+					
+					// header line containes categories
+					if (lineNo == 0) {
+						$.each(items, function(itemNo, item) {
+							if (itemNo > 0) options.xAxis.categories.push(item);
+						});
+					}
+					
+					// the rest of the lines contain data with their name in the first position
+					else {
+						var series = { 
+							data: []
+						};
+						$.each(items, function(itemNo, item) {
+							if (itemNo == 0) {
+								series.name = item;
+							} else {
+								series.data.push(parseFloat(item));
+							}
+						});
+						
+						options.series.push(series);
+
+					}
+					
+				});
+				
+				var chart = new Highcharts.Chart(options);
+				
+									
+			});
+			
+			
+		});
+		</script>
+		
+    	<script type="text/javascript">
+				$(function () {
+				    $('#electricity').highcharts({
+				        chart: {
+				            plotBackgroundColor: null,
+				            plotBorderWidth: 0,//null,
+				            plotShadow: false
+				        },
+				        title: {
+				            text: ''
+				        },
+				        tooltip: {
+				            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+				        },
+				        plotOptions: {
+				            pie: {
+				                allowPointSelect: true,
+				                cursor: 'pointer',
+				                dataLabels: {
+				                    enabled: true,
+				                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+				                    style: {
+				                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+				                    }
+				                }
+				            }
+				        },
+				        
+				        series: [{
+				            type: 'pie',
+				            name: 'Electricity',
+				            colors: ['#ababab', '#bcbcbc', '#bd5355', '#8d4653', '#c68485'],
+				            data: [
+				                ['Nuclear',   14.0],
+				                ['Fossil Fuel',       23.0],
+				                ['Hydroelectric', 58],
+				                ['Wind',    4.0],
+				                ['Biomass',     1.0],
+				                ['Solar, Tide, Wave',   0.05]
+				            ]
+				        }]
+				    });
+				});
+		</script>
+		<script type="text/javascript">
+$(function () {
+    $('#gas').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: ''
+        },
+        subtitle: {
+            text: ''
+        },
+        legend: {
+            enabled: false,
+        },
+        xAxis: {
+            categories: ['USA', 'Russia', 'Iran', 'Qatar', 'Canada'],
+            title: {
+                text: null
+            }
+        },
+        yAxis: {
+            min: 0,
+            max: 30,
+            title: {
+                text: 'Trillion cubic feet (Tcf)',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            }
+        },
+        tooltip: {
+            valueSuffix: ' Tcf'
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: true
+                  
+                }
+            },
+            colorByPoint: true,
+        },
+    
+        series: [{
+	        name: ["Natural Gas"],
+	        colorByPoint: true,
+	        colors: ['#ababab', '#ababab', '#ababab', '#ababab', '#A40406'], 
+            data: [24, 22, 6, 5.5, 5.01]
+        }]
+
+    });
+});
+		</script>
+
+<script type="text/javascript">
+$(function () {
+    $('#oil').highcharts({
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: ['2004', '2005', '2006', '2007', '2008', '2009',
+                '2010', '2011', '2012', '2013', '2014', '2015']
+        },
+        yAxis: {
+            title: {
+                text: 'Thousand barrels/day'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+            }]
+        },
+        tooltip: {
+            valueSuffix: '°C'
+        },
+        legend: {
+            enabled: true,
+            
+        },
+        series: [
+        
+        {
+            name: 'Production',
+            lineColor: '#A40406',
+            colorByPoint: true,
+            colors: '#8d4653',
+            data: [3100, 3050, 3250, 3480, 3400, 3390, 3500, 3520, 3700, 4050, 4400, 4500]
+        }, {
+            name: 'Consumption',
+            lineColor: '#ababab',
+            colorByPoint: true,
+            colors: '#BCBCBC',
+            data: [2400, 2400, 2200, 2400, 2250, 2100, 2300, 2250, 2300, 2320, 2400, 2410]
+        }]
+    });
+});
+		</script>
+
+		<script type="text/javascript">
+		$(function () {
+		    $('#expectancy').highcharts({
+		        chart: {
+		            type: 'column'
+		        },
+		        title: {
+		            text: ''
+		        },
+		        subtitle: {
+		            text: ''
+		        },
+		        legend: {
+		            enabled: true,
+		        },
+		        xAxis: {
+		            categories: ['USA', 'Canada'],
+		            title: {
+		                text: null
+		            }
+		        },
+		        yAxis: {
+		            min: 0,
+		            max: 100,
+		            title: {
+		                text: 'Years',
+		                align: 'high'
+		            },
+		            labels: {
+		                overflow: 'justify'
+		            }
+		        },
+				plotOptions: {
+	            	column: {
+						borderWidth: 0
+            				}
+        		},
+		        tooltip: {
+		            valueSuffix: ' Yrs'
+		        },
+		        series: [{
+			        name: ["Male"],
+			        colorByPoint: true,
+			        colors: ['#ababab','#A40406'], 
+		            data: [76, 80]
+		        },{
+		        name: ["Female"],
+			        colorByPoint: true,
+			        colors: ['#ababab','#A40406'], 
+		            data: [81, 84]
+		           }]
+		    });
+		});
+</script>
+		
+    
+</head>
+
+
+<body id="page-top" class="index">
+	
+	
+	
+	<script src="js/highcharts.js"></script>   
+	
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">Oh, Canada</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#energy">Energy</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#economy">Economy</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#banking">Banking</a>
+                    </li>
+                    <!--  <li>
+                        <a class="page-scroll" href="#people">People</a>
+                    </li> -->
+                    <li>
+                        <a class="page-scroll" href="#health">Health</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-heading">CANADA KICKS ASS</div>
+                <a href="#energy" class="page-scroll btn btn-xl">Eh?</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Services Section -->
+    <section id="energy">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Energy</h2>
+                    <h3 class="section-subheading text-muted">Canada is one of the world's five largest energy producers and is the principal source of U.S. energy imports. With global energy demand predicted to rise over 40% by 2035, Canada is well-positioned to remain a global leader in energy production.</h3>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-fire fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="service-heading">Natural Gas</h4>
+                    <p class="text-muted">Canada is the world's fifth-largest producer of dry natural gas and the source of most U.S. natural gas imports.</p>
+					
+                </div>
+                <div class="col-md-8">
+                	<div id="gas" style="min-width: 310px; max-width: 400px; height: 200; margin: 0 auto"></div>
+                </div>
+                
+                <div class="row"><div class="col-lg-12 text-center"><hr></div></div>
+
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-filter fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="service-heading">Crude Oil</h4>
+                    <p class="text-muted">Canada's oil sands are a significant contributor to the recent growth and expected future growth in the world's liquid fuel supply, and they comprise most of the country's proved oil reserves.</p>
+                </div>
+                <div class="col-md-8">
+                	<div id="oil" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+                </div>
+                
+                <div class="row"><div class="col-lg-12 text-center"><hr></div></div>
+                
+                <div class="col-md-4">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-flash fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="service-heading">Electricity</h4>
+                    <p class="text-muted">Canada is a net exporter of electricity to the United States, and most of its power needs are met by hydroelectricity.</p>
+                    
+                 </div>
+                 <div class="col-md-8">
+                	<div id="electricity" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+                </div>
+            </div>
+             <p class="text-muted">Source: US Energy and Information Administration</>
+        </div>
+    </section>
+
+    <!-- Portfolio Grid Section -->
+    <section id="economy" class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Economy</h2>
+                    <h3 class="section-subheading text-muted">Canada is the 9th largest economy in the world based on GDP (current prices, US dollars) and the 14th largest based on GDP (PPP). Since the 2008 global financial crisis, the Canadian economy has re-emerged as one of the strongest advanced economies in the world. In 2010, Canada’s GDP growth (constant prices, national currency) stood at 3.071 percent – the highest it had been since 2004.</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="img/employment.jpg" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Employment</h4>
+                        <p class="text-muted">Steadily rising since 1995</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="img/growth.png" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Fastest Growing G8 Nation</h4>
+                        <p class="text-muted">5.9% from 2006 to 2010</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="img/tim-preview.png" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Tim Horton's</h4>
+                        <p class="text-muted">Dominates Canada</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="banking">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Banking</h2>
+                    <h3 class="section-subheading text-muted">Canada's banking system is the soundest in the world for the seventh year in a row, further bolstering Canada’s international economic success story.</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="timeline">
+                        <li>
+                            <div class="timeline-image">
+                                <h1>0</h1>
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+	                                <p>&nbsp;<br><br></p>
+                                    <h4>Banks crashed since 2008</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">The USA had 420</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-inverted">
+                            <div class="timeline-image">
+                                <h1>4</h1>
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+	                                <p>&nbsp;<br><br></p>
+                                    <h4>Banks in the top 25 world safest banks</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted"></p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="img/carney.png" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+	                                <p>&nbsp;<br><br></p>
+                                    <h4>Mark Carney, Bank of Canada's Governor</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">Serves as Chairman of the Financial Stability Board </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-inverted">
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="img/scotiabank.jpg" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+	                                <p>&nbsp;<br></p>
+                                    <h4>Scotiabank</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">Cited Canada as a "notable outperformer" when compared to other developed countries.</p>
+                                </div>
+                            </div>
+                    </ul>
+                </div>
+                <span class="text-muted"> Source: <a href="http://www.fin.gc.ca/n14/14-114-eng.asp">Department of Finance Canada</a></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section 
+    <section id="people" class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">People</h2>
+                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="team-member">
+                        <img src="img/team/1.jpg" class="img-responsive img-circle" alt="">
+                        <h4>Kay Garland</h4>
+                        <p class="text-muted">Lead Designer</p>
+                        <ul class="list-inline social-buttons">
+                            <li><a href="#"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="team-member">
+                        <img src="img/team/2.jpg" class="img-responsive img-circle" alt="">
+                        <h4>Larry Parker</h4>
+                        <p class="text-muted">Lead Marketer</p>
+                        <ul class="list-inline social-buttons">
+                            <li><a href="#"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="team-member">
+                        <img src="img/team/3.jpg" class="img-responsive img-circle" alt="">
+                        <h4>Diana Pertersen</h4>
+                        <p class="text-muted">Lead Developer</p>
+                        <ul class="list-inline social-buttons">
+                            <li><a href="#"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    
+        <section id="health">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Health</h2>
+                    <h3 class="section-subheading text-muted">Canada's Life expectancy at birth is higher than both regional and global averages..</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                 <div id="expectancy" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="copyright text-muted">Copyright &copy; C. Todd Lombardo 2014</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li><a href="http://twitter.com/iamctodd"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li><a href="http://ctodd.com"><i class="fa fa-home"></i></a>
+                        </li>
+                        <li><a href="http://linknedin.com/in/ctoddlombardo"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Portfolio Modals -->
+    <!-- Use the modals below to showcase details about your portfolio projects! -->
+
+    <!-- Portfolio Modal 1 -->
+    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <!-- Project Details Go Here -->
+                            <h2>Employment</h2>
+                            <p class="item-intro text-muted">Steadily rising since 1995.</p>
+                            <img class="img-responsive" src="img/employed.png" alt="">
+                            <p>The number of employed persons in Canada increased to 17968.60 Thousand in October of 2014 from 17925.50 Thousand in September of 2014. Employed Persons in Canada averaged 13790.28 Thousand from 1976 until 2014, reaching an all time high of 17968.60 Thousand in October of 2014 and a record low of 9636.70 Thousand in January of 1976. Employed Persons in Canada is reported by the Statistics Canada.</p>      <p class="text-muted">Source: Trading Economies</p>                      
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"></i>Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portfolio Modal 2 -->
+    <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h2>Fastest Growing G8 Nation</h2>
+                            <p>Canadian GDP rose 0.8 percent in the second quarter of 2014, following a revised 0.2 percent increase in the first quarter. This was the largest quarterly gain since the third quarter of 2011, as all sectors of the economy increased except non-profit institutions serving households. </p>
+							<div id="gni" ></div>
+                            <p class="text-muted">Source: World Bank</p>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portfolio Modal 3 -->
+    <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <!-- Project Details Go Here -->
+                            <h2>Tim Horton's</h2>
+                            <p class="item-intro text-muted">Best. Restaurant. Ever. Eh?</p>
+                            <img class="img-responsive img-centered" src="img/tim-map.png" alt="Tim Horton's, FTW!">
+                            <p>The chain entered the area in July 2012 with the opening of a location in Hermitage, Pennsylvania. As of June 30, 2013, Tim Hortons has 4,304 restaurants, including 3,468 in Canada, 807 in the United States, 29 in The Gulf Cooperation Council.</p>
+                            <p>Source <a href="http://timhortons.com">timhortons.com</a>.</p>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script> 
+    <script src="js/classie.js"></script>
+    <script src="js/cbpAnimatedHeader.js"></script>
+    
+    <!-- Charts JavaScript -->
+    <script src="js/highcharts.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/agency.js"></script>
+
+</body>
+
+</html>

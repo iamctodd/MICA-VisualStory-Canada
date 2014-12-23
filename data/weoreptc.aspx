@@ -1,0 +1,17 @@
+ISO	Country	Subject Descriptor	Units	Scale	Country/Series-specific Notes	2012	2013	2014	2015	2016	2017	2018	2019	Estimates Start After
+CAN	Canada	Gross domestic product, constant prices	Percent change		See notes for:  Gross domestic product, constant prices (National currency).	1.709	2.009	2.299	2.365	2.352	2.222	2.094	2.031	2013
+FRA	France	Gross domestic product, constant prices	Percent change		See notes for:  Gross domestic product, constant prices (National currency).	0.014	0.270	1.030	1.530	1.710	1.820	1.920	1.925	2013
+DEU	Germany	Gross domestic product, constant prices	Percent change		See notes for:  Gross domestic product, constant prices (National currency).	0.896	0.537	1.709	1.559	1.404	1.361	1.304	1.287	2013
+ITA	Italy	Gross domestic product, constant prices	Percent change		See notes for:  Gross domestic product, constant prices (National currency).	-2.368	-1.854	0.626	1.149	1.250	1.150	0.950	0.950	2012
+JPN	Japan	Gross domestic product, constant prices	Percent change		See notes for:  Gross domestic product, constant prices (National currency).	1.447	1.539	1.351	0.965	0.670	0.992	1.006	1.125	2013
+GBR	United Kingdom	Gross domestic product, constant prices	Percent change		See notes for:  Gross domestic product, constant prices (National currency).	0.251	1.756	2.878	2.463	2.352	2.255	2.429	2.442	2013
+USA	United States	Gross domestic product, constant prices	Percent change		See notes for:  Gross domestic product, constant prices (National currency).	2.779	1.878	2.768	2.953	3.034	2.906	2.593	2.218	2013
+CAN	Canada	Employment	Persons	Millions	Source: National Statistical Office Latest actual data: 2013 Employment type: National definition Primary domestic currency: Canadian dollars Data last updated: 03/2014	17.509	17.730	17.920	18.125	n/a	n/a	n/a	n/a	2013
+FRA	France	Employment	Persons	Millions	Source: National Statistical Office Latest actual data: 2013 Employment type: Harmonized ILO definition. Data prior to 1983 are not harmonized. Primary domestic currency: Euros Data last updated: 03/2014	25.802	25.787	25.822	25.713	n/a	n/a	n/a	n/a	2013
+DEU	Germany	Employment	Persons	Millions	Source: National Statistical Office Latest actual data: 2013 Notes: Data until 1990 refers to German federation only (West Germany). Data from 1991 refer to United Germany. Employment type: Harmonized ILO definition Primary domestic currency: Euros Data last updated: 03/2014	40.087	40.684	40.946	41.208	n/a	n/a	n/a	n/a	2013
+ITA	Italy	Employment	Persons	Millions	Source: National Statistical Office Latest actual data: 2012 Employment type: Harmonized ILO definition Primary domestic currency: Euros Data last updated: 03/2014	22.905	22.346	22.372	22.613	n/a	n/a	n/a	n/a	2012
+JPN	Japan	Employment	Persons	Millions	Source: Global Insight and Nomura database. Latest actual data: 2013 Employment type: National definition Primary domestic currency: Japanese yen Data last updated: 03/2014	62.699	63.113	63.349	63.004	n/a	n/a	n/a	n/a	2013
+GBR	United Kingdom	Employment	Persons	Millions	Source: National Statistical Office Latest actual data: 2013 Employment type: Harmonized ILO definition Primary domestic currency: Sterling pounds Data last updated: 03/2014	29.519	29.896	30.388	30.725	n/a	n/a	n/a	n/a	2013
+USA	United States	Employment	Persons	Millions	Source: National Statistical Office Latest actual data: 2013 Employment type: National definition Primary domestic currency: U.S. dollars Data last updated: 03/2014	142.466	143.930	145.871	147.486	n/a	n/a	n/a	n/a	2013
+
+International Monetary Fund, World Economic Outlook Database, April 2014
